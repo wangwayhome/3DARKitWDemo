@@ -41,8 +41,9 @@
     [super viewWillAppear:animated];
     
     //创建一个追踪设备配置（ARWorldTrackingSessionConfiguration主要负责传感器追踪手机的移动和旋转）
-    ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
-    
+    ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration
+ new];
+        configuration.providesAudioData = YES;
     // Run the view's session
     // 开始启动ARSession会话（启动AR）
     [self.sceneView.session runWithConfiguration:configuration];
@@ -88,5 +89,17 @@
     // Reset tracking and/or remove existing anchors if consistent tracking is required
     
 }
+//- (void)renderer:(id <SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
+//    ARLightEstimate *estimate = self.sceneView.session.currentFrame.lightEstimate;
+//    if (!estimate) {
+//        return;
+//    }
+//    NSLog(@"renderer = %@",renderer);
+//
+//}
 
+- (void)session:(ARSession *)session didOutputAudioSampleBuffer:(CMSampleBufferRef)audioSampleBuffer{
+   
+    NSLog(@"CMSampleBufferRef = %@",audioSampleBuffer);
+}
 @end
